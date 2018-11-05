@@ -5,6 +5,8 @@
  */
 package airlinereservationsystem;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Janaka Sandaruwan
@@ -167,7 +169,21 @@ public class RegisterFrame extends javax.swing.JFrame {
         em.setPhonenumber(txtphonenumber.getText());
         em.setUser_category_id("c1");
         
-        db.addUser(em);
+        int x = db.checkforuser(em);
+        
+        if(x==0){
+            boolean result = db.addUser(em);
+            if (result){
+                JOptionPane.showMessageDialog(this,"Successfully Inserted!!!");
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this,"Error!!!");
+            }
+        }else if(x==1){
+            JOptionPane.showMessageDialog(this,"username already exit!!!");
+        }else{
+            JOptionPane.showMessageDialog(this,"Error while checking!!!");
+        }
         
        
     }//GEN-LAST:event_btnregActionPerformed

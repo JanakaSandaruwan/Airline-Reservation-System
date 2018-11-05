@@ -57,5 +57,40 @@ public class DBoperation {
         }
     }
     
+    int checkforuser(user em){
+        try{
+            con = (Connection)DriverManager.getConnection(url, username, password);
+          
+            String query= "select username from user";
+            pst =(PreparedStatement)con.prepareStatement(query);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                if(em.getUsername().equals(rs.getString(1))){
+                     return 1;
+                }
+            }
+            
+            return 0;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            
+            return -1;
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
+    }
+    
     
 }
