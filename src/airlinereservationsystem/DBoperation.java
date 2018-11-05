@@ -19,7 +19,7 @@ public class DBoperation {
         try{
             //System.out.println("sdfsdf1");
             con = (Connection)DriverManager.getConnection(url, username, password);
-           // System.out.println("sdfsdf");
+            // System.out.println("sdfsdf");
             String query= "INSERT INTO user values (?,?,?,?,?,?,?,?,?)";
             pst =(PreparedStatement)con.prepareStatement(query);
             
@@ -90,6 +90,52 @@ public class DBoperation {
             
             }
         }
+    }
+    
+    
+    boolean checkforlogin(String uname, String pword){
+        try{
+            //System.out.println(uname);
+            //System.out.println(pword);
+            
+            con = (Connection)DriverManager.getConnection(url, username, password);
+            // System.out.println("sdfsdf");
+            String query= "Select password from user where username=?";
+            
+            pst =(PreparedStatement)con.prepareStatement(query);
+            pst.setString(1,uname);
+            
+           
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+               // System.out.println(rs.getString(1)+" "+pword);
+                if( pword.equals(rs.getString(1))){
+                     System.out.print(rs.getString(1));
+                     return true;
+                }
+            }
+            //System.out.print("ooopp");
+            return false;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            
+            return false;
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
+    
     }
     
     

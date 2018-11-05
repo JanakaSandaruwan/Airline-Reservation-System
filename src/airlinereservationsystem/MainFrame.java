@@ -6,12 +6,15 @@
 package airlinereservationsystem;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Janaka Sandaruwan
  */
 public class MainFrame extends javax.swing.JFrame {
+    
+    DBoperation db= new DBoperation();
 
     /**
      * Creates new form MainFrame
@@ -35,9 +38,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtusername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JTextField();
         btnreg = new javax.swing.JButton();
         btnlogin = new javax.swing.JButton();
+        txtpassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,6 +69,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnlogin.setText("Login");
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,9 +90,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(btnreg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(btnlogin))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtusername)
-                        .addComponent(txtpassword, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                    .addComponent(txtusername)
+                    .addComponent(txtpassword))
                 .addContainerGap(313, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,6 +166,26 @@ public class MainFrame extends javax.swing.JFrame {
         rf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_btnregActionPerformed
 
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        String username=txtusername.getText();
+        String password=txtpassword.getText();
+        
+        boolean login= db.checkforlogin(username,password);
+        
+        if (login){
+            CustomerMainFrame cmf=new CustomerMainFrame();
+            cmf.setVisible(true);
+            this.dispose();
+            
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(this,"Wrong username or password!!!");
+            //this.dispose();
+        }
+        
+    }//GEN-LAST:event_btnloginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,7 +230,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField txtpassword;
+    private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }
