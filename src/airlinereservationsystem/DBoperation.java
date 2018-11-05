@@ -5,6 +5,7 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class DBoperation {
     String url = "jdbc:mysql://localhost:3307/airlinereservationsys";
@@ -135,6 +136,55 @@ public class DBoperation {
             
             }
         }
+    
+    }
+    
+    
+    ArrayList<Shedule> getStudent(){
+        
+        ArrayList<Shedule> list=new ArrayList<Shedule>();
+        
+        try{
+            
+            con = (Connection)DriverManager.getConnection(url, username, password);
+           
+            String query= "select * from schedule";//error query for check
+            pst =(PreparedStatement)con.prepareStatement(query);
+            
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Shedule em=new Shedule();
+                /*
+                add query result to em
+                
+                */
+                
+                list.add(em);
+                
+            }
+            
+            return list;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            
+            return null;
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
+        
+        
     
     }
     

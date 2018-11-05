@@ -24,7 +24,7 @@ public class CustomerMainFrame extends javax.swing.JFrame {
     }
     
     void loadTable(){
-        //list=db.getStudent();
+        list=db.getStudent();
         SheduleTable tm=new SheduleTable(list);
         table.setModel(tm);
         
