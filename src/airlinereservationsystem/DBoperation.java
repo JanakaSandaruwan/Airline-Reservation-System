@@ -140,7 +140,7 @@ public class DBoperation {
     }
     
     
-    ArrayList<Shedule> getStudent(){
+    ArrayList<Shedule> getShedule(){
         
         ArrayList<Shedule> list=new ArrayList<Shedule>();
         
@@ -148,7 +148,8 @@ public class DBoperation {
             
             con = (Connection)DriverManager.getConnection(url, username, password);
            
-            String query= "select * from schedule";//error query for check
+            String query= "select  date,flight_id,airplane_id,b.name,c.name,departure_time,new_departure_time from schedule left join delay using (delay_id)  left join flight using(flight_id) left join route using (route_id),airport as b, airport as c where b.airport_code= from_port_id and c.airport_code = to_port_id";
+            
             pst =(PreparedStatement)con.prepareStatement(query);
             
             
@@ -156,10 +157,16 @@ public class DBoperation {
             
             while(rs.next()){
                 Shedule em=new Shedule();
-                /*
-                add query result to em
                 
-                */
+                em.setDate(rs.getString(1));
+                em.setAirline(rs.getString(2));
+                em.setFlight(rs.getString(3));
+                em.setFrom(rs.getString(4));
+                em.setTo(rs.getString(5));
+                em.setSheduled_time(rs.getString(6));
+                em.setDelay_time(rs.getString(7));
+                
+                
                 
                 list.add(em);
                 
