@@ -42,6 +42,12 @@ public class MainFrame extends javax.swing.JFrame {
         btnlogin = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtadminname = new javax.swing.JTextField();
+        txtadminpassword = new javax.swing.JTextField();
+        btnlogin_admin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,7 +98,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(btnlogin))
                     .addComponent(txtusername)
                     .addComponent(txtpassword))
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,23 +115,95 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnreg)
                     .addComponent(btnlogin))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Customer", jPanel1);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
+
+        jLabel4.setText("Username");
+
+        jLabel5.setText("Password");
+
+        txtadminname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtadminnameActionPerformed(evt);
+            }
+        });
+
+        txtadminpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtadminpasswordActionPerformed(evt);
+            }
+        });
+
+        btnlogin_admin.setText("Login");
+        btnlogin_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlogin_adminActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnlogin_admin)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                                .addComponent(txtadminname, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(txtadminpassword)))
+                        .addGap(231, 231, 231))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtadminname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtadminpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addComponent(btnlogin_admin)
+                .addContainerGap(201, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 731, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
+        jPanel3.getAccessibleContext().setAccessibleName("Login");
+
         jTabbedPane1.addTab("Admin", jPanel2);
+        jPanel2.getAccessibleContext().setAccessibleName("Login");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,6 +264,37 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnloginActionPerformed
 
+    private void txtadminnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtadminnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtadminnameActionPerformed
+
+    private void txtadminpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtadminpasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtadminpasswordActionPerformed
+
+    private void btnlogin_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogin_adminActionPerformed
+        String username=txtadminname.getText();
+        String password=txtadminpassword.getText();
+        
+        boolean login= db.checkforadminlogin(username,password);
+        
+        if (login){
+            AdminMainFrame amf=new AdminMainFrame();
+            amf.setVisible(true);
+           // AdminFrame af= new AdminFrame();
+           // CustomerMainFrame cmf=new CustomerMainFrame();
+           // cmf.setVisible(true);
+            this.dispose();
+            
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(this,"Wrong username or password!!!");
+            //this.dispose();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlogin_adminActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,13 +332,19 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogin;
+    private javax.swing.JButton btnlogin_admin;
     private javax.swing.JButton btnreg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField txtadminname;
+    private javax.swing.JTextField txtadminpassword;
     private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables

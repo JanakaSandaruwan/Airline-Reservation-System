@@ -8,13 +8,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DBoperation {
-    String url = "jdbc:mysql://localhost:3307/airlinereservationsys";
+    String url = "jdbc:mysql://localhost:3306/airlinereservationsys";
     String password="";
     String username = "root";
     Connection con =null;
     PreparedStatement pst=null;
     ResultSet rs;
-    
+     
+    //ArrayList<PastFlight> pf_list=new ArrayList<PastFlight>();
     
     boolean addUser(user em){
         try{
@@ -113,6 +114,51 @@ public class DBoperation {
             while(rs.next()){
                // System.out.println(rs.getString(1)+" "+pword);
                 if( pword.equals(rs.getString(1))){
+                    // System.out.print(rs.getString(1));
+                     return true;
+                }
+            }
+            //System.out.print("ooopp");
+            return false;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            
+            return false;
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
+    
+    }
+    
+    boolean checkforadminlogin(String uname, String pword){
+        try{
+            //System.out.println(uname);
+            //System.out.println(pword);
+            
+            con = (Connection)DriverManager.getConnection(url, username, password);
+            // System.out.println("sdfsdf");
+            String query= "Select password from admin where username=?";
+            
+            pst =(PreparedStatement)con.prepareStatement(query);
+            pst.setString(1,uname);
+            
+           
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+               // System.out.println(rs.getString(1)+" "+pword);
+                if( pword.equals(rs.getString(1))){
                      System.out.print(rs.getString(1));
                      return true;
                 }
@@ -145,7 +191,7 @@ public class DBoperation {
         ArrayList<Shedule> list=new ArrayList<Shedule>();
         
         try{
-            
+           
             con = (Connection)DriverManager.getConnection(url, username, password);
            
             String query= "select  date,flight_id,airplane_id,b.name,c.name,departure_time,new_departure_time from schedule left join delay using (delay_id)  left join flight using(flight_id) left join route using (route_id),airport as b, airport as c where b.airport_code= from_port_id and c.airport_code = to_port_id";
@@ -192,6 +238,87 @@ public class DBoperation {
         }
         
         
+    
+    }
+    
+//    ArrayList<PastFlight> getPastFlightTable(){
+//        return this.pf_list;
+//    }
+    
+    void checkFlightHistory(String from_port_id, String to_port_id){
+        try{
+         
+            con = (Connection)DriverManager.getConnection(url, username, password);
+          
+            String query= "Select route_id from route where from_port_id=? and to_port_id=?";
+            
+            pst =(PreparedStatement)con.prepareStatement(query);
+            pst.setString(1,from_port_id);
+            pst.setString(2,to_port_id);
+           
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                String route_id=rs.getString(1);
+              //  System.out.println(route_id);
+                String query_2="Select flight_id from flight where route_id=?";
+                PreparedStatement pst_2 =(PreparedStatement)con.prepareStatement(query_2);
+                pst_2.setString(1,route_id);
+                
+                ResultSet rs_2 = pst_2.executeQuery();
+                
+                while(rs_2.next()){
+                    String flight_id=rs_2.getString(1);
+                  //  System.out.println(flight_id);
+                  //  String query_date="SELECT CAST(GETDATE() AS DATE)";
+                  //  PreparedStatement pst_date=(PreparedStatement)con.prepareStatement(query_date);
+                 //   ResultSet rs_date=pst_date.executeQuery();
+                 //   String today=rs_date.getString(1);
+                    
+                //    System.out.println(flight_id);
+                    String query_3="Select schedule_id,date,flight_id,booked_seats_business+booked_seats_platinum+booked_seats_econ from schedule where flight_id=?";///hjh
+                    PreparedStatement pst_3=(PreparedStatement)con.prepareStatement(query_3);
+                    pst_3.setString(1,flight_id);
+                  //  pst_3.setString(2,today);
+                    
+                    ResultSet rs_3=pst_3.executeQuery();
+                    
+                    while(rs_3.next()){
+                       PastFlight pf=new PastFlight();
+               //        System.out.println(rs_3.getString(1));
+                       pf.setDate(rs_3.getString(2));
+                       pf.setFlight_id(rs_3.getString(3));
+                       pf.setSchedule_id(rs_3.getString(1));
+                       pf.setPassCount(rs_3.getString(4));
+                       Value.pf_list.add(pf);
+                    }
+                    
+                }
+               // System.out.println(rs.getString(1)+" "+pword);
+//                if( pword.equals(rs.getString(1))){
+//                     System.out.print(rs.getString(1));
+//                    // return true;
+//                }
+            }
+            //System.out.print("ooopp");
+           // return false;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            
+           // return false;
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
     
     }
     
