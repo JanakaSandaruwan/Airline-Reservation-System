@@ -44,6 +44,7 @@ public class CustomerMainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnprice = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Airline Reservation System ");
@@ -67,14 +68,23 @@ public class CustomerMainFrame extends javax.swing.JFrame {
 
         jButton1.setText("Book Now");
 
+        btnprice.setText("View Prices");
+        btnprice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpriceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(140, 140, 140)
+                .addComponent(btnprice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(55, 55, 55))
+                .addGap(95, 95, 95))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(291, 291, 291)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -92,7 +102,9 @@ public class CustomerMainFrame extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnprice))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -115,6 +127,20 @@ public class CustomerMainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnpriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpriceActionPerformed
+        PriceFrame mp =new PriceFrame();
+        mp.setVisible(true);
+        Shedule cc = list.get(table.getSelectedRow());
+        
+        System.out.println(cc.getSheduleid());
+        Price p = db.getPrices(cc);
+        
+        mp.loadPrices(p);
+        
+        
+        
+    }//GEN-LAST:event_btnpriceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,6 +178,7 @@ public class CustomerMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnprice;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

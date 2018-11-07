@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/MainFrame.java</file>
-            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/RegisterFrame.java</file>
+            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/CustomerMainFrame.java</file>
+            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/Shedule.java</file>
             <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/DBoperation.java</file>
-            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/user.java</file>
             <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/AirlineReservationSystem.java</file>
+            <file>file:/C:/Users/Janaka%20Sandaruwan/Documents/NetBeansProjects/AirlineReservationSystem/src/airlinereservationsystem/SheduleTable.java</file>
         </group>
     </open-files>
 </project-private>
