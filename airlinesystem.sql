@@ -14,9 +14,25 @@ create table  if not exists user (
     user_id int auto_increment,
     username varchar(30) not null unique,
     password varchar(30) not null,
+    firstname varchar(30) not null ,
+    lastname varchar(30) not null,
+    user_category_id varchar(30) not null,
+    email varchar(50) not null,
+    phonenumber varchar(10) not null,
+    address varchar(50) not null,
+    age int not null,
+    
+
+    primary key(user_id)
+    
+
+);
+create table  if not exists admin (
+    user_id int auto_increment,
+    username varchar(30) not null unique,
+    password varchar(30) not null,
     firstname varchar(30) not null,
     lastname varchar(30) not null,
-    user_category_id varchar(30) not null ,
     email varchar(50) not null,
     phonenumber varchar(10) not null,
     address varchar(50) not null,
@@ -40,7 +56,7 @@ create table  if not exists airplane_type (
 insert into airplane_type values ("type1","aaaa",45,35,35);
 
 create table  if not exists airplane (
-    airplane_id varchar(10) not null,
+    airplane_id varchar(30) not null,
     type_id varchar(30) not null,
  
     primary key(airplane_id),
@@ -49,33 +65,41 @@ create table  if not exists airplane (
 );
 
 insert into airplane values("KL 445","type1");
+insert into airplane values("KN 334","type1");
+insert into airplane values("RM 64","type1");
+insert into airplane values("MG 64","type1");
 
 create table  if not exists plane_seats (
-    airplane_id varchar(10) not null,
+    airplane_id varchar(30) not null,
 	seat_no int(30) not null,
     type varchar(30) not null,
  
-    primary key(airplane_id),
+    primary key(airplane_id, seat_no),
     foreign key (airplane_id) references airplane(airplane_id)
 
 );
 
 
 create table  if not exists price (
-    price_id int(30) not null auto_increment,
-	econ_price float(5,3),
-	business_price float(5,3),
-	platinum_price float(5,3),
+    price_id varchar(30) not null,
+	econ_price float(10,3),
+	business_price float(10,3),
+	platinum_price float(10,3),
  
     primary key(price_id)
    
 );
 
-insert into price values(1,334,556,788);
+insert into price values('1',334,556,788);
+insert into price values('2',3500,5500,7000);
+insert into price values('3',1000,5500,7400);
+insert into price values('4',1000,5500,7400);
 
 create table  if not exists delay (
     delay_id int not null auto_increment,
+	new_departure_date date,
 	new_departure_time time,
+	new_arrival_date date,
 	new_arrival_time time,
 	reson varchar(30),
  
@@ -83,7 +107,10 @@ create table  if not exists delay (
    
 );
 
-insert into delay values(1,13:00:00,14:00:00,"rain");
+insert into delay values(1,'2018-11-10','13:00:00','2018-11-10','14:00:00',"rain");
+insert into delay values(2,'2018-11-11','2:00:00','2018-11-11','5:00:00',"rain");
+insert into delay values(3,'2018-11-12','5:00:00','2018-11-12','5:50:00',"ice");
+insert into delay values(4,'2018-11-13','8:00:00','2018-11-13','8:20:00',"ice");
 
 create table  if not exists location (
     location_id varchar(30) not null,
@@ -96,6 +123,8 @@ create table  if not exists location (
 
 insert into location values ("loc1","fsd","ff");
 insert into location values ("loc2","fsd","ff");
+insert into location values ("loc3","fsd","ff");
+insert into location values ("loc4","fsd","ff");
 
 create table  if not exists airport (
     airport_code varchar(30) not null,
@@ -107,8 +136,10 @@ create table  if not exists airport (
    
 );
 
-INSERT INTO airport VALUES (12,"loc1","Galle");
+INSERT INTO airport VALUES (12,"loc1","Mattala");
 INSERT INTO airport VAlUES (24,"loc2","Colombo");
+INSERT INTO airport VAlUES (30,"loc3","India");
+INSERT INTO airport VAlUES (10,"loc4","China");
 
 create table if not exists route (
     route_id varchar(30) not null,
@@ -122,11 +153,13 @@ create table if not exists route (
 );
 
 INSERT INTO route VALUES ("r1",12,24);
-
+INSERT INTO route VALUES ("r2",12,30);
+INSERT INTO route VALUES ("r3",10,30);
+INSERT INTO route VALUES ("r4",12,24);
 
 create table  if not exists flight (
-    flight_id int not null,
-	date_of_week varchar(30) not null,
+    flight_id varchar(30) not null,
+	date_of_week ENUM('Monday','Tuesday','Wednesday','Thursady','Friday','Saturday','Sunday') not null,
 	departure_time time not null,
 	arrival_time time not null,
 	route_id varchar(30) not null,
@@ -136,18 +169,22 @@ create table  if not exists flight (
    
 );
 
-insert into flight values (1,"Mon",12:10:00,11:00:00,"r1");
+insert into flight values ('AA-1',"Monday",'12:10:00','11:00:00',"r1");
+insert into flight values ('AB-1',"Tuesday",'2:10:00','2:50:00',"r2");
+insert into flight values ('EB-12',"Wednesday",'1:00:00','1:50:00',"r3");
+insert into flight values ('WZ-11',"Thursday",'7:00:00','7:45:00',"r4");
+
 
 create table if not exists schedule(
-    schedule_id int not  null auto_increment,
+    schedule_id varchar(30) not  null,
     date date not null,
-	flight_id int not null,
+	flight_id varchar(30) not null,
     booked_seats_econ int,
     booked_seats_business int,
     booked_seats_platinum int,
-    price_id int not null,
+    price_id varchar(30) not null,
     airplane_id varchar(10) not null,
-    delay_id int not null,
+    delay_id int,
 
     primary key(schedule_id),
 	foreign key (flight_id) references flight(flight_id),
@@ -157,15 +194,17 @@ create table if not exists schedule(
 	
 );
 
-insert into schedule values (0,2018-05-20,1,40,30,30,1,"KL 445",1);
+insert into schedule values ('0','2018-11-10','AA-1',40,30,30,'1',"KL 445",1);
+insert into schedule values ('1','2018-11-11','AB-1',40,30,30,'2',"KN 334",2);
+insert into schedule values ('2','2018-11-12','EB-12',50,50,50,'3',"RM 64",3);
+insert into schedule values ('3','2018-11-13','WZ-11',80,10,10,'4',"MG 64",4);
 
 
 create table if not exists booking(
     booking_id int not  null auto_increment,
     user_id int not null,
-    schedule_id int not null ,
+    schedule_id varchar(30) not null ,
     price float (5,3) not null ,
-    booked_seats_platinum int ,
     payment_status boolean not null,
     seat_no int not null,
     
@@ -178,4 +217,3 @@ create table if not exists booking(
 
 
 
-select  date,flight_id,airplane_id,b.name,c.name,departure_time,new_departure_time from schedule left join delay using (delay_id)  left join flight using(flight_id) left join route using (route_id),airport as b, airport as c where b.airport_code= from_port_id and c.airport_code = to_port_id;

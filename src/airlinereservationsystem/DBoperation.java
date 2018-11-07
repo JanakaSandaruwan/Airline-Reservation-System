@@ -18,11 +18,12 @@ public class DBoperation {
     //ArrayList<PastFlight> pf_list=new ArrayList<PastFlight>();
     
     boolean addUser(user em){
+        System.out.println(em.getFirstname()+" "+em.getFirstname().length());
         try{
             //System.out.println("sdfsdf1");
             con = (Connection)DriverManager.getConnection(url, username, password);
             // System.out.println("sdfsdf");
-            String query= "INSERT INTO user values (?,?,?,?,?,?,?,?,?)";
+            String query= "INSERT INTO user values (?,?,?,?,?,?,?,?,?,?)";
             pst =(PreparedStatement)con.prepareStatement(query);
             
             pst.setInt(1,em.getUser_id());
@@ -34,6 +35,7 @@ public class DBoperation {
             pst.setString(7,em.getEmail());
             pst.setString(8,em.getPhonenumber());
             pst.setString(9,em.getAddress());
+            pst.setInt(10,em.getAge());
             
             
             
@@ -194,7 +196,7 @@ public class DBoperation {
            
             con = (Connection)DriverManager.getConnection(url, username, password);
            
-            String query= "select  date,flight_id,airplane_id,b.name,c.name,departure_time,new_departure_time from schedule left join delay using (delay_id)  left join flight using(flight_id) left join route using (route_id),airport as b, airport as c where b.airport_code= from_port_id and c.airport_code = to_port_id";
+            String query= "select  date,flight_id,airplane_id,b.name,c.name,departure_time,new_departure_time,schedule_id from schedule left join delay using (delay_id)  left join flight using(flight_id) left join route using (route_id),airport as b, airport as c where b.airport_code= from_port_id and c.airport_code = to_port_id";
             
             pst =(PreparedStatement)con.prepareStatement(query);
             
@@ -211,6 +213,7 @@ public class DBoperation {
                 em.setTo(rs.getString(5));
                 em.setSheduled_time(rs.getString(6));
                 em.setDelay_time(rs.getString(7));
+                em.setSheduleid(rs.getString(8));
                 
                 
                 
@@ -320,6 +323,49 @@ public class DBoperation {
             }
         }
     
+    }
+    
+    
+    Price getPrices(Shedule ss){
+        //System.out.println("fff"+ss.getSheduleid()+"  ff");
+        try{
+            Price em=new Price();
+            con = (Connection)DriverManager.getConnection(url, username, password);
+            System.out.println(ss.getSheduleid()+"  ff");
+            String query= "select econ_price,business_price,platinum_price from schedule left join price using(price_id) where schedule_id="+ss.getSheduleid();
+            pst =(PreparedStatement)con.prepareStatement(query);
+           // pst.setString(1,ss.getSheduleid());
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                
+                
+                em.setEcon_price(rs.getFloat(1));
+                em.setBusiness_price(rs.getFloat(2));
+                em.setPlatinum_price(rs.getFloat(3));
+                
+                
+            }
+            
+            return em;
+            
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+           
+        }finally{
+            try{
+                if(pst != null){
+                    pst.close();
+                }
+                if (con != null){
+                    con.close();
+                }
+            }catch(Exception e){
+            
+            }
+        }
     }
     
     

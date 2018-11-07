@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Shedule {
    // Date date;
+    
+    private String sheduleid;
     private String date;
     private String airline;
     private String flight;
@@ -109,6 +111,20 @@ public class Shedule {
      */
     public void setDelay_time(String delay_time) {
         this.delay_time = delay_time;
+    }
+
+    /**
+     * @return the sheduleid
+     */
+    public String getSheduleid() {
+        return sheduleid;
+    }
+
+    /**
+     * @param sheduleid the sheduleid to set
+     */
+    public void setSheduleid(String sheduleid) {
+        this.sheduleid = sheduleid;
     }
     
     
